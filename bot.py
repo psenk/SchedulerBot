@@ -43,16 +43,20 @@ bot = commands.Bot(intents=intents)
 
 # LOGGING
 
-# getting logger 
+# getting logger or create if unmade
 bot_logger = logging.getLogger(__name__)
+# add specific handler to logger
 bot_logger.addHandler(logging.FileHandler(filename='logs/bot.log', encoding='utf-8', mode='w'))
+# set logging level
 bot_logger.setLevel(logging.DEBUG)
 
 #
 # BOT COMMANDS
 # 
 
-# schedule content
+"""
+User command, schedules content for learning.
+"""
 @bot.tree.command(name='schedule', description='Command to schedule a time to learn content with a certified trainer.')
 async def schedule(interaction: discord.Interaction) -> None:
     pass
@@ -61,12 +65,15 @@ async def schedule(interaction: discord.Interaction) -> None:
 # DISCORD API CODE
 #
 
-# runs whenever bot finishes booting up
+"""
+Bot event, runs whenever the bot starts up.
+"""
 @bot.event
 async def on_ready() -> None:
     print('Scheduling bot online.')
     bot_logger.info('Scheduling bot online.')
 
-# runs the bot
+# final command to run the bot
+# requires token and log handler with level specified
 if DISCORD_TOKEN:
     bot.run(DISCORD_TOKEN, log_handler=logging.FileHandler(filename='logs/discord.log', encoding='utf-8', mode='w'), log_level=logging.DEBUG)
