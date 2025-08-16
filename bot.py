@@ -1,3 +1,7 @@
+#
+# IMPORTS
+#
+
 # discord.py library
 import discord
 # bot commands framework library
@@ -18,20 +22,18 @@ from dotenv import load_dotenv
 # CONSTANTS
 #
 
-# AUTH
+## AUTH
 
 # load .env file
 load_dotenv(override=True)
 # get DISCORD_TOKEN key from .env file
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-# DISCORD INFO
-
 #
 # VARIABLES
 #
 
-# BOT
+## BOT
 
 # creating an intent (discord permissions for bot) object with all intents enabled
 intents = discord.Intents.all()
@@ -41,7 +43,7 @@ intents.members = True
 # creating bot object
 bot = commands.Bot(intents=intents)
 
-# LOGGING
+## LOGGING
 
 # getting logger or create if unmade
 bot_logger = logging.getLogger(__name__)
@@ -55,7 +57,13 @@ bot_logger.setLevel(logging.DEBUG)
 # 
 
 """
-User command, schedules content for learning.
+User command for scheduling content to learn.
+
+Arguments:
+- interaction - Discord interaction object
+
+Return:
+- None
 """
 @bot.tree.command(name='schedule', description='Command to schedule a time to learn content with a certified trainer.')
 async def schedule(interaction: discord.Interaction) -> None:
@@ -67,6 +75,12 @@ async def schedule(interaction: discord.Interaction) -> None:
 
 """
 Bot event, runs whenever the bot starts up.
+
+Arguments:
+- None
+
+Return:
+- None
 """
 @bot.event
 async def on_ready() -> None:
